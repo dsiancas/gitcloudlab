@@ -7,10 +7,18 @@ root = tree.getroot()
 
 urls = (
     '/alumnos', 'list_users',
-    '/alumnos/(.*)', 'get_user'
+    '/alumnos/(.*)', 'get_user',
+    '/status', 'status'
 )
 
 app = web.application(urls, globals())
+
+
+class status:
+    def GET(self):
+        web.header('Content-Type', 'text/plain')
+        #resp = app.request("/alumnos")
+        return web.ctx.status
 
 class list_users:        
     def GET(self):
@@ -19,6 +27,7 @@ class list_users:
                 print 'child', child.tag, child.attrib
                 output += str(child.attrib) + ','
 	output += ']';
+
         return output
 
 class get_user:
